@@ -20,9 +20,10 @@ body{
 a{
   color: var(--whiskey)
 }
-h2{
+h2, h5, h3, h4{
   text-align: center;
 }
+
 .cocktails{
   display: flex;
   flex-wrap: wrap;

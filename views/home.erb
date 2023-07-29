@@ -1,4 +1,9 @@
+<h2>Welcome to Titos and Vodka</h2>
+<h5>A <a href="https://www.neatonthe.rocks/" target="_blank">Neat on the Rocks</a> extension for cocktail recipes</h5>
+
+<h4>My favorite cocktails:</h4>
 <div class="cocktails">
+  
   <% @cocktails.each{ |cocktail| %>
     <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["idDrink"]%>'; ">
       <h4><%= cocktail["strDrink"] %></h4>
