@@ -1,0 +1,8 @@
+<div class="cocktails">
+  <% @cocktails.each{ |cocktail| %>
+    <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["idDrink"]%>'; ">
+      <h4><%= cocktail["strDrink"] %></h4>
+      <img src=<%= cocktail["strDrinkThumb"] %> alt="<%=cocktail["strDrink"] %> image" />
+    </div>
+  <% } %>
+</div>
