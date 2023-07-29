@@ -58,4 +58,17 @@ nav{
 
 .cocktail-content{
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5vw;
+}
+
+.cocktail-content > img {
+  width: 40vw;
+}
+.cocktail-info{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 40vw;
 }
