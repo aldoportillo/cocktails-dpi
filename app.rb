@@ -86,3 +86,8 @@ get("/feeling_lucky"){
 
   erb(:cocktail)
 }
+
+not_found do
+  status 404
+  erb(:oops)
+end
