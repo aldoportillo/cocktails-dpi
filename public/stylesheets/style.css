@@ -17,6 +17,9 @@ body{
   color: white;
 }
 
+a{
+  color: var(--whiskey)
+}
 h2{
   text-align: center;
 }
@@ -45,4 +48,10 @@ h2{
 .cocktail-box > img{
   width: 20vw;
   border-radius: 20px;
+}
+
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
