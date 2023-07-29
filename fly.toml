@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for dark-violet-9355 on 2023-07-29T19:17:30Z
+# fly.toml app configuration file generated for titos-and-vodka on 2023-07-29T19:21:21Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "dark-violet-9355"
+app = "titos-and-vodka"
 primary_region = "ord"
 
 [http_service]
