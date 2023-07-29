@@ -33,10 +33,18 @@ get("/cocktail/:id"){
 
   @name, @glass, @image, @instructions = @res.dig("strDrink"), @res.dig("strGlass"), @res.dig("strDrinkThumb"), @res.dig("strInstructions")
 
-  #Missing ingredients
-  #strIngredient4
-  #strMeasure2
+  @ingredientArr = []
 
+  ingredientNum = 1
+
+  @res.each{|key, value|
+    if key.include? "strIngredient"
+      if value != nil 
+        @ingredientArr.push([value, @res["strMeasure#{ingredientNum}"]])
+        ingredientNum += 1
+      end
+    end
+  }
 
   erb(:cocktail)
 }
@@ -48,9 +56,6 @@ get("/feeling_lucky"){
 
   @name, @glass, @image, @instructions = @res.dig("strDrink"), @res.dig("strGlass"), @res.dig("strDrinkThumb"), @res.dig("strInstructions")
 
-  #Missing ingredients
-  #strIngredient4
-  #strMeasure2
 
   @ingredientArr = []
 
