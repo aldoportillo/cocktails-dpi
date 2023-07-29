@@ -87,6 +87,17 @@ get("/feeling_lucky"){
   erb(:cocktail)
 }
 
+get("/cocktail_ingredient/:ingredient"){
+  @ingredient = params.fetch("ingredient")
+
+  req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{@ingredient}")
+  @res = JSON.parse(req)
+
+  @cocktails = @res.dig('drinks')
+  @cocktail_name = @ingredient
+  erb(:cocktail_result)
+}
+
 not_found do
   status 404
   erb(:oops)
