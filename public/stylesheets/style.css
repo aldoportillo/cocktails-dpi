@@ -14,8 +14,35 @@ body{
   margin: 0;
   width: 100vw;
   height: 100vh;
+  color: white;
+}
+
+h2{
+  text-align: center;
+}
+.cocktails{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .cocktail-box{
   background-color: var(--overlay);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  height: auto;
+  width: 20vw;
+  border-radius: 20px;
+}
+.cocktail-box:hover{
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 6px 3px 3px rgba(255, 255, 255, 0.393);
+}
+.cocktail-box > img{
+  width: 20vw;
+  border-radius: 20px;
 }

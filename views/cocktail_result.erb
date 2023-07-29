@@ -1,9 +1,10 @@
-<%= @cocktail_name %>
+<h2><%= @cocktail_name.upcase %></h2>
 
-<% @cocktails.each{ |cocktail| %>
-  <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["idDrink"]%>'; ">
-    <%= cocktail["idDrink"] %>
-    <%= cocktail["strDrink"] %>
-    <img src=<%= cocktail["strDrinkThumb"] %> alt="<%=cocktail["strDrink"] %> image" />
-  </div>
-<% } %>
+<div class="cocktails">
+  <% @cocktails.each{ |cocktail| %>
+    <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["idDrink"]%>'; ">
+      <h4><%= cocktail["strDrink"] %></h4>
+      <img src=<%= cocktail["strDrinkThumb"] %> alt="<%=cocktail["strDrink"] %> image" />
+    </div>
+  <% } %>
+</div>
