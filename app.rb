@@ -4,6 +4,20 @@ require "http"
 require "json"
 
 get("/") do
+
+  drink_ids = [11003, 11403, 11001]
+
+  @cocktails = []
+
+  drink_ids.each{|drink_id|
+
+    req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{drink_id}")
+    res = JSON.parse(req).dig("drinks",0)
+
+    @cocktails.push(res)
+  }
+
+  
   erb(:home)
 end
 get("/cocktail_search"){
