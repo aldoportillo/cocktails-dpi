@@ -1,18 +1,8 @@
-# sinatra-template
+# Titos and Vodka
+### An extension of [Neat on the Rocks](https://www.neatonthe.rocks/)
 
-Use this repository to create new Sinatra apps. 
+This project uses [The Cocktail DB](https://www.thecocktaildb.com/) API to search for cocktails.
 
-Optionally, to use `ActiveRecord` for database operations, add to the `app.rb`:
+This project helped me better understand calling an API using Ruby; as well as, creating actions, routes, and views.
 
-```ruby
-require "sinatra/activerecord"
-```
-
-And in the `config/environment.rb` file add this code block:
-
-```ruby
-configure do
-  # setup a database connection
-  set(:database, { adapter: "sqlite3", database: "db/development.sqlite3" })
-end
-```
+This also gave me a better idea on how I would like to structure my Cocktail Database for Neat on the Rocks.
