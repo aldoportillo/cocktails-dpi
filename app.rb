@@ -1,4 +1,5 @@
 require "sinatra"
+require 'sinatra/main'
 require "sinatra/reloader"
 require "http"
 require "json"
