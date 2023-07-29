@@ -1,10 +1,14 @@
 <h2><%= @cocktail_name.upcase %></h2>
 
 <div class="cocktails">
-  <% @cocktails.each{ |cocktail| %>
-    <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["idDrink"]%>'; ">
-      <h4><%= cocktail["strDrink"] %></h4>
-      <img src=<%= cocktail["strDrinkThumb"] %> alt="<%=cocktail["strDrink"] %> image" />
-    </div>
-  <% } %>
+  <%if @cocktails != nil %>
+    <% @cocktails.each{ |cocktail| %>
+      <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["idDrink"]%>'; ">
+        <h4><%= cocktail["strDrink"] %></h4>
+        <img src=<%= cocktail["strDrinkThumb"] %> alt="<%=cocktail["strDrink"] %> image" />
+      </div>
+    <% } %>
+  <% else %>
+    <h2>Cocktail not found</h2>
+  <% end %>
 </div>
