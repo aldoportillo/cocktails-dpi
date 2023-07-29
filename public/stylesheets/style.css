@@ -1,0 +1,21 @@
+*{
+  --darkmode: #36393f;
+  text-decoration: none;
+  --header: #23272a;
+  box-sizing: border-box;
+  --whiskey: rgba(244, 154, 115, 0.855);
+  --overlay: #838383;
+}
+
+body{
+  background-color: var(--darkmode);
+  position: relative;
+  font-family: 'Nunito Sans', sans-serif;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.cocktail-box{
+  background-color: var(--overlay);
+}
