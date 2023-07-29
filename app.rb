@@ -37,6 +37,7 @@ get("/cocktail/:id"){
   #strIngredient4
   #strMeasure2
 
+
   erb(:cocktail)
 }
 
@@ -50,6 +51,19 @@ get("/feeling_lucky"){
   #Missing ingredients
   #strIngredient4
   #strMeasure2
+
+  @ingredientArr = []
+
+  ingredientNum = 1
+
+  @res.each{|key, value|
+    if key.include? "strIngredient"
+      if value != nil 
+        @ingredientArr.push([value, @res["strMeasure#{ingredientNum}"]])
+        ingredientNum += 1
+      end
+    end
+  }
 
   erb(:cocktail)
 }
