@@ -55,6 +55,7 @@ nav{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0px 10px 0px 10px;
 }
 
 .cocktail-content{
@@ -72,4 +73,27 @@ nav{
   flex-direction: column;
   align-items: flex-start;
   width: 40vw;
+}
+
+@media only screen and (max-width: 811px) {
+
+  .cocktail-box{
+    width: 90vw;
+  }
+  .cocktail-box > img{
+    width: 90vw;
+  }
+
+  .cocktail-content{
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  .cocktail-content > img {
+    width: 100vw;
+  }
+
+  .cocktail-content > .cocktail-info{
+    width: 80vw;
+  }
 }
