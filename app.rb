@@ -4,10 +4,7 @@ require "http"
 require "json"
 
 get("/") do
-  "
-  <h1>Welcome to your Sinatra App!</h1>
-  <p>Define some routes in app.rb</p>
-  "
+  erb(:home)
 end
 get("/cocktail_search"){
   
@@ -32,6 +29,20 @@ get("/cocktail/:id"){
   API = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{@id}"
 
   req = HTTP.get(API)
+  @res = JSON.parse(req).dig('drinks', 0)
+
+  @name, @glass, @image, @instructions = @res.dig("strDrink"), @res.dig("strGlass"), @res.dig("strDrinkThumb"), @res.dig("strInstructions")
+
+  #Missing ingredients
+  #strIngredient4
+  #strMeasure2
+
+  erb(:cocktail)
+}
+
+get("/feeling_lucky"){
+
+  req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/random.php")
   @res = JSON.parse(req).dig('drinks', 0)
 
   @name, @glass, @image, @instructions = @res.dig("strDrink"), @res.dig("strGlass"), @res.dig("strDrinkThumb"), @res.dig("strInstructions")
