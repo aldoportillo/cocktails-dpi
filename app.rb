@@ -99,6 +99,34 @@ get("/cocktail_ingredient/:ingredient"){
   erb(:cocktail_result)
 }
 
+get("/cocktail_search_dynamic"){
+  search_type = params.fetch("search_type")
+
+  if search_type == "ingredient"
+    @search_term = params.fetch("search_term")
+    @cocktail_name = @search_term #modify @cocktail_name to header in erb file and here later
+
+    req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{CGI.escape(@search_term)}")
+    @res = JSON.parse(req)
+
+    @cocktails = @res.dig('drinks')
+    
+  else
+    #else defaults to cocktail by name incase there is later more things to search by ie glassware ect
+    @search_term = params.fetch("search_term")
+    @cocktail_name = @search_term #modify @cocktail_name to header in erb file and here later
+
+    req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{CGI.escape(@search_term)}")
+    @res = JSON.parse(req)
+
+    @cocktails = @res.fetch("drinks")
+
+  end
+
+  erb(:cocktail_result)
+}
+
+
 not_found do
   status 404
   erb(:oops)
