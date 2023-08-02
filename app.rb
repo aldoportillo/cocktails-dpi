@@ -3,6 +3,7 @@ require 'sinatra/main'
 require "sinatra/reloader"
 require "http"
 require "json"
+require "sinatra/cookies"
 
 get("/") do
 
@@ -124,6 +125,18 @@ get("/cocktail_search_dynamic"){
   end
 
   erb(:cocktail_result)
+}
+
+get("/favorites"){
+
+  if cookies["favorite_cocktails"] == nil 
+    @favorite_cocktails = []
+    cookies["favorite_cocktails"] = JSON.generate(@favorite_cocktails)
+  else 
+    @favorite_cocktails = JSON.parse(cookies.fetch("favorite_cocktails"))
+  end
+
+  erb(:favorite_cocktails)
 }
 
 
