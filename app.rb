@@ -139,6 +139,20 @@ get("/favorites"){
   erb(:favorite_cocktails)
 }
 
+post("/add_favorite/:id"){
+  @id = params.fetch("id")
+
+  if cookies["favorite_cocktails"] == nil 
+    @favorite_cocktails = []
+    cookies["favorite_cocktails"] = JSON.generate(@favorite_cocktails)
+  else 
+    @favorite_cocktails = JSON.parse(cookies.fetch("favorite_cocktails"))
+  end
+
+  @favorite_cocktails.push(@id)
+
+  cookies["favorite_cocktails"] = JSON.generate(@favorite_cocktails)
+}
 
 not_found do
   status 404
