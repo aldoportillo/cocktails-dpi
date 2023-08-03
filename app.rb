@@ -7,9 +7,18 @@ require "sinatra/cookies"
 
 get("/") do
 
-  drink_ids = [11003, 11403, 11001]
+  drink_ids = [11003, 11403, 11001 ]
 
   @cocktails = []
+
+  @has_favorites = false
+
+  if cookies["favorite_cocktails"] != nil 
+    if JSON.parse(cookies["favorite_cocktails"]).length > 0
+      @favorite_cocktails = JSON.parse(cookies.fetch("favorite_cocktails"))
+      @has_favorites = true
+    end
+  end
 
   drink_ids.each{|drink_id|
 
@@ -113,12 +122,12 @@ post("/add_favorite/:id/:name/:img"){
 
   cookies["favorite_cocktails"] = JSON.generate(@favorite_cocktails.uniq)
 
-  redirect("/favorites")
+  redirect("/")
 }
 
 post("/clear_favorites"){
   cookies["favorite_cocktails"] = JSON.generate([])
-  redirect("/favorites")
+  redirect("/")
 }
 
 
