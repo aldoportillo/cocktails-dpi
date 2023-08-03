@@ -22,23 +22,7 @@ get("/") do
   
   erb(:home)
 end
-get("/cocktail_search"){
-  
-  erb(:cocktail_search)
-}
 
-post("/cocktail_result"){
-  @cocktail_name = params.fetch("cocktail_name")
-
-  API = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{CGI.escape(@cocktail_name)}"
-
-  req = HTTP.get(API)
-  @res = JSON.parse(req)
-
-  @cocktails = @res.fetch("drinks")
-
-  erb(:cocktail_result)
-}
 
 get("/cocktail/:id"){
   @id = params.fetch("id")
@@ -96,34 +80,7 @@ get("/cocktail_ingredient/:ingredient"){
   @res = JSON.parse(req)
 
   @cocktails = @res.dig('drinks')
-  @cocktail_name = @ingredient
-  erb(:cocktail_result)
-}
-
-get("/cocktail_search_dynamic"){
-  search_type = params.fetch("search_type")
-
-  if search_type == "ingredient"
-    @search_term = params.fetch("search_term")
-    @cocktail_name = @search_term #modify @cocktail_name to header in erb file and here later
-
-    req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{CGI.escape(@search_term)}")
-    @res = JSON.parse(req)
-
-    @cocktails = @res.dig('drinks')
-    
-  else
-    #else defaults to cocktail by name incase there is later more things to search by ie glassware ect
-    @search_term = params.fetch("search_term")
-    @cocktail_name = @search_term #modify @cocktail_name to header in erb file and here later
-
-    req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{CGI.escape(@search_term)}")
-    @res = JSON.parse(req)
-
-    @cocktails = @res.fetch("drinks")
-
-  end
-
+  @header = @ingredient
   erb(:cocktail_result)
 }
 
@@ -164,7 +121,90 @@ post("/clear_favorites"){
   redirect("/favorites")
 }
 
+
+
+post("/cocktail_search_dynamic"){
+
+  search_type = params.fetch("search_type")
+  search_term = params.fetch("search_term")
+  @header = search_term
+
+  if search_type == "by_ingredient"
+
+    req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{CGI.escape(search_term)}")
+    @res = JSON.parse(req)
+
+    @cocktails = @res.dig('drinks')
+    
+  else
+    #else defaults to cocktail by name 
+
+    req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{CGI.escape(search_term)}")
+    @res = JSON.parse(req)
+
+    @cocktails = @res.fetch("drinks")
+
+  end
+  erb(:cocktail_result)
+}
+
+
 not_found do
   status 404
   erb(:oops)
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Legacy Code
+=begin
+TO GET SEARCH PAGE 
+
+get("/cocktail_search"){
+  
+  erb(:cocktail_search)
+}
+
+
+TO GET CERTAIN COCKTAIL BY NAME
+
+post("/cocktail_result"){
+  @cocktail_name = params.fetch("cocktail_name")
+
+  API = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{CGI.escape(@cocktail_name)}"
+
+  req = HTTP.get(API)
+  @res = JSON.parse(req)
+
+  @cocktails = @res.fetch("drinks")
+
+  erb(:cocktail_result)
+}
+
+
+=end
