@@ -2,7 +2,7 @@
 
 
 <div class="cocktails">
-  <%if @favorite_cocktails != nil %>
+  <%if @favorite_cocktails != nil || @favorite_cocktails != [] %>
     <% @favorite_cocktails.each{ |cocktail| %>
       <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["id"]%>'; ">
         <h4><%= cocktail["name"] %></h4>
@@ -12,4 +12,7 @@
   <% else %>
     <h2>Favorites is empty</h2>
   <% end %>
+  <form method="post" action="/clear_favorites">
+    <button>Clear Favorites</button>
+  </form>
 </div>

@@ -159,6 +159,11 @@ post("/add_favorite/:id/:name/:img"){
   redirect("/favorites")
 }
 
+post("/clear_favorites"){
+  cookies["favorite_cocktails"] = JSON.generate([])
+  redirect("/favorites")
+}
+
 not_found do
   status 404
   erb(:oops)
