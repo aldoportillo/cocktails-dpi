@@ -1,5 +1,19 @@
 <h2>Welcome to Titos and Vodka</h2>
 <h5>A <a href="https://www.neatonthe.rocks/" target="_blank">Neat on the Rocks</a> extension for cocktail recipes</h5>
+<% if @has_favorites %>
+  <h4>Your favorite cocktails: </h4>
+  <div class="cocktails">
+    <% @favorite_cocktails.each{ |cocktail| %>
+        <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["id"]%>'; ">
+          <h4><%= cocktail["name"] %></h4>
+          <img src=<%= cocktail["img"] %> alt="<%=cocktail["name"] %> image" />
+        </div>
+      <% } %>
+  </div>
+  <form method="post" action="/clear_favorites">
+    <button>Clear Favorites</button>
+  </form>
+<% end %>
 <h4>My favorite cocktails:</h4>
 <div class="cocktails">
   
