@@ -139,8 +139,10 @@ get("/favorites"){
   erb(:favorite_cocktails)
 }
 
-post("/add_favorite/:id"){
+post("/add_favorite/:id/:name/:img"){
   @id = params.fetch("id")
+  @name = params.fetch("name")
+  @img = params.fetch("img").gsub(":-:", "/")
 
   if cookies["favorite_cocktails"] == nil 
     @favorite_cocktails = []
@@ -149,9 +151,9 @@ post("/add_favorite/:id"){
     @favorite_cocktails = JSON.parse(cookies.fetch("favorite_cocktails"))
   end
 
-  @favorite_cocktails.push(@id)
+  @favorite_cocktails.push({"id" => @id, "name" => @name, "img" => @img})
 
-  cookies["favorite_cocktails"] = JSON.generate(@favorite_cocktails)
+  cookies["favorite_cocktails"] = JSON.generate(@favorite_cocktails.uniq)
 
   redirect("/favorites")
 }
