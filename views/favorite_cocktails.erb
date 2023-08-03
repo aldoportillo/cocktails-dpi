@@ -1,0 +1,15 @@
+<h2>Favorite Cocktails</h2>
+
+
+<div class="cocktails">
+  <%if @favorite_cocktails != nil %>
+    <% @favorite_cocktails.each{ |cocktail| %>
+      <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["id"]%>'; ">
+        <h4><%= cocktail["name"] %></h4>
+        <img src=<%= cocktail["img"] %> alt="<%=cocktail["name"] %> image" />
+      </div>
+    <% } %>
+  <% else %>
+    <h2>Favorites is empty</h2>
+  <% end %>
+</div>

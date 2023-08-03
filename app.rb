@@ -136,6 +136,7 @@ get("/favorites"){
     @favorite_cocktails = JSON.parse(cookies.fetch("favorite_cocktails"))
   end
 
+
   erb(:favorite_cocktails)
 }
 
