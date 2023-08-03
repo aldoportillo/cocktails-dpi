@@ -152,6 +152,8 @@ post("/add_favorite/:id"){
   @favorite_cocktails.push(@id)
 
   cookies["favorite_cocktails"] = JSON.generate(@favorite_cocktails)
+
+  redirect("/favorites")
 }
 
 not_found do
