@@ -13,12 +13,17 @@
       <nav>
         <h1><a href="/">Titos and Vodka</a></h1>
         <!-- <a href="/cocktail_search">Search</a> -->
-        <form method="post" action="/cocktail_result">
-          <label for="cocktail_name">Search for cocktail</label>
-          <input name="cocktail_name" id="cocktail_name" type="text" />
+        <form method="post" action="/cocktail_search_dynamic">
+          <label for="search_term">Search for cocktail</label>
+          <input name="search_term" id="search_term" type="text" />
+          <label for="search_type">Search by: </label>
+          <select id="search_type" name="search_type">
+            <option value="by_name">Name</option>
+            <option value="by_ingredient">Ingredient</option>
+          </select>
           <button>Search</button>
         </form>
-        <a href="/feeling_lucky">I'm feeling lucky</a>
+        <button><a href="/feeling_lucky">I'm feeling lucky</a></button>
       </nav>
     </header>
     <%= yield %>
