@@ -19,9 +19,10 @@
       </table>
     </span>
     <p>Click on ingredient to find other drinks with that ingredient</p>
-  </div>
-  <form method="post" action="/add_favorite/<%= @id %>/<%= @name %> /<%= @image.gsub("/", ":-:") %>">
+    <form method="post" action="/add_favorite/<%= @id %>/<%= @name %> /<%= @image.gsub("/", ":-:") %>">
     <button>Add to favorites</button>
   </form>
+  </div>
+  
   
 </div>
