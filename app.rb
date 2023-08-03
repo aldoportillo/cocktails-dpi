@@ -70,7 +70,7 @@ get("/feeling_lucky"){
   req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/random.php")
   @res = JSON.parse(req).dig('drinks', 0)
 
-  @name, @glass, @image, @instructions = @res.dig("strDrink"), @res.dig("strGlass"), @res.dig("strDrinkThumb"), @res.dig("strInstructions")
+  @name, @glass, @image, @instructions, @id = @res.dig("strDrink"), @res.dig("strGlass"), @res.dig("strDrinkThumb"), @res.dig("strInstructions"), @res.dig("idDrink")
 
 
   @ingredientArr = []
