@@ -157,6 +157,15 @@ post("/cocktail_search_dynamic"){
   erb(:cocktail_result)
 }
 
+get("/advanced_search"){
+
+  erb(:advanced_search)
+}
+
+post("/advanced_search"){
+  
+  redirect("/advanced_search")
+}
 
 not_found do
   status 404
@@ -190,30 +199,27 @@ end
 
 
 
-#Legacy Code
-=begin
-TO GET SEARCH PAGE 
+# #Legacy Code
 
-get("/cocktail_search"){
+# TO GET SEARCH PAGE 
+
+# get("/cocktail_search"){
   
-  erb(:cocktail_search)
-}
+#   erb(:cocktail_search)
+# }
 
 
-TO GET CERTAIN COCKTAIL BY NAME
+# TO GET CERTAIN COCKTAIL BY NAME
 
-post("/cocktail_result"){
-  @cocktail_name = params.fetch("cocktail_name")
+# post("/cocktail_result"){
+#   @cocktail_name = params.fetch("cocktail_name")
 
-  API = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{CGI.escape(@cocktail_name)}"
+#   API = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{CGI.escape(@cocktail_name)}"
 
-  req = HTTP.get(API)
-  @res = JSON.parse(req)
+#   req = HTTP.get(API)
+#   @res = JSON.parse(req)
 
-  @cocktails = @res.fetch("drinks")
+#   @cocktails = @res.fetch("drinks")
 
-  erb(:cocktail_result)
-}
-
-
-=end
+#   erb(:cocktail_result)
+# }
