@@ -164,10 +164,14 @@ get("/advanced_search"){
 
   if cookies["drinks"] != nil
     @drinks = JSON.parse(cookies["drinks"])
+  else
+    cookies["drinks"] = JSON.generate([])
   end
 
   if cookies["ingredients"] != nil
     @ingredients = JSON.parse(cookies["ingredients"])
+  else
+    cookies["ingredients"] = JSON.generate([])
   end
 
   erb(:advanced_search)
@@ -175,17 +179,23 @@ get("/advanced_search"){
 
 post("/advanced_search"){
 
-  ingredient = params.fetch("ingredient")
+  @ingredient = params.fetch("ingredient")
 
   req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{@ingredient}")
-  @res = JSON.parse(req)
+  @res = JSON.parse(req).dig("drinks")
 
-  if cookies["drinks"] != nil
+  @ingredients = JSON.parse(cookies["ingredients"]).push(@ingredient)
+
+  cookies["ingredients"] = JSON.generate(@ingredients)
+
+  
+
+  if cookies["drinks"].length > 1
     @drinks = JSON.parse(cookies["drinks"])
-    @drinks_2 = @res.dig('drinks')
+    @drinks_2 = @res
     #More code
   else
-    cookies["drinks"] = JSON.generate(@res.dig("drinks"))
+    cookies["drinks"] = JSON.generate(@res)
   end
 
 
