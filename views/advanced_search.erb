@@ -1,5 +1,10 @@
 <h2>Advanced Search</h2>
 
-<form method="post" action="/advanced_search">
+<%= @ingredients%>
+<%= @drinks %>
   
+<form method="post" action="/advanced_search">
+  <label for="ingredient">Name of Ingredient</label>
+  <input type="text" name="ingredient">
+  <button>Submit</button>
 </form>

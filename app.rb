@@ -159,11 +159,37 @@ post("/cocktail_search_dynamic"){
 
 get("/advanced_search"){
 
+  @drinks = []
+  @ingredients = []
+
+  if cookies["drinks"] != nil
+    @drinks = JSON.parse(cookies["drinks"])
+  end
+
+  if cookies["ingredients"] != nil
+    @ingredients = JSON.parse(cookies["ingredients"])
+  end
+
   erb(:advanced_search)
 }
 
 post("/advanced_search"){
-  
+
+  ingredient = params.fetch("ingredient")
+
+  req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{@ingredient}")
+  @res = JSON.parse(req)
+
+  if cookies["drinks"] != nil
+    @drinks = JSON.parse(cookies["drinks"])
+    @drinks_2 = @res.dig('drinks')
+    #More code
+  else
+    cookies["drinks"] = JSON.generate(@res.dig("drinks"))
+  end
+
+
+
   redirect("/advanced_search")
 }
 
