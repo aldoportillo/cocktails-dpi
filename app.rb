@@ -183,21 +183,30 @@ post("/advanced_search"){
 
   @ingredients = JSON.parse(cookies["ingredients"]).push(@ingredient)
 
-  cookies["ingredients"] = JSON.generate(@ingredients)
+  cookies["ingredients"] = JSON.generate(@ingredients.uniq)
 
-  @req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{@ingredient}")
-  @res = JSON.parse(@req).dig("drinks")
+  req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{@ingredient}")
+  @res = JSON.parse(req).dig("drinks")
 
+  new_drink_ids = []
+  @res.each{|drink|
+    new_drink_ids.push(drink.fetch("idDrink"))
+  }
+  
+  if JSON.parse(cookies["drinks"]) != []
+    @drinks = JSON.parse(cookies["drinks"])
+    
+    merged_drinks = []
+    @drinks.each{|drink_num|
+      if new_drink_ids.include?(drink_num)
+        merged_drinks.push(drink_num)
+      end
+    }
 
-  cookies["drinks"] = JSON.generate(@res)
-
-  # if JSON.parse(cookies["drinks"]).length > 1
-  #   @drinks = JSON.parse(cookies["drinks"])
-  #   @drinks_2 = @res
-  #   #More code
-  # else
-  #   cookies["drinks"] = JSON.generate(@res)
-  # end
+    cookies["drinks"] = JSON.generate(merged_drinks)
+  else
+    cookies["drinks"] = JSON.generate(new_drink_ids)
+  end
 
 
 
