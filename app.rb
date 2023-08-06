@@ -174,6 +174,14 @@ get("/advanced_search"){
     cookies["ingredients"] = JSON.generate([])
   end
 
+  @drinks_details = []
+  @drinks.each{|drink_id|
+    req_0 = HTTP.get("www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{drink_id}")
+    @res_0 = JSON.parse(req_0).dig("drinks",0)
+
+    @drinks_details.push(res)
+  }
+
   erb(:advanced_search)
 }
 
