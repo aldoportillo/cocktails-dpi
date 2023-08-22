@@ -161,6 +161,8 @@ post("/cocktail_search_dynamic"){
 }
 
 
+$advanced_search_drinks = []
+$ingredients = []
 
 get("/advanced_search"){
   $advanced_search_drinks = []
