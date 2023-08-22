@@ -1,8 +1,10 @@
 <h2>Advanced Search</h2>
-
+<%= $global %>
 <%= @ingredients%>
 <%= @drinks %>
 <%= @res %>
+<%= $merged_drinks %>
+<%= $merged_drinks.length %>
   
 <form method="post" action="/advanced_search">
   <label for="ingredient">Name of Ingredient</label>

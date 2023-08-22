@@ -5,6 +5,9 @@ require "http"
 require "json"
 require "sinatra/cookies"
 
+#Global Variable Start
+$global = [1]
+
 get("/") do
 
   drink_ids = [11003, 11403, 11001 ]
@@ -157,8 +160,11 @@ post("/cocktail_search_dynamic"){
   erb(:cocktail_result)
 }
 
+$advanced_search_drinks = []
+
 get("/advanced_search"){
 
+  $global.push(2)
   @drinks = []
   @ingredients = []
 
@@ -196,24 +202,22 @@ post("/advanced_search"){
   req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{@ingredient}")
   @res = JSON.parse(req).dig("drinks")
 
-  new_drink_ids = []
+  new_drinks = []
   @res.each{|drink|
-    new_drink_ids.push(drink.fetch("idDrink"))
+    new_drinks.push({"name" => drink.fetch("strDrink"), "img" => drink.fetch("strDrinkThumb")})
   }
   
-  if JSON.parse(cookies["drinks"]) != []
-    @drinks = JSON.parse(cookies["drinks"])
+  if $advanced_search_drinks != []
     
     merged_drinks = []
-    @drinks.each{|drink_num|
-      if new_drink_ids.include?(drink_num)
-        merged_drinks.push(drink_num)
+    $advanced_search_drinks.each{|drink|
+      if new_drinks.include?(drink)
+        merged_drinks.push(drink)
       end
     }
 
-    cookies["drinks"] = JSON.generate(merged_drinks)
   else
-    cookies["drinks"] = JSON.generate(new_drink_ids)
+    $merged_drinks = new_drinks
   end
 
 
