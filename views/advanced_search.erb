@@ -4,10 +4,15 @@
   <input type="text" name="ingredient">
   <button>Submit</button>
 </form>
-<button>Clear Search</button>
-<%= $advanced_search_drinks.length %>
+<button><a href="/advanced_search">Clear Search</a></button>
+<table>
+  <% $ingredients.uniq.each{|ingredient| %>
+    <tr>
+      <td><%= ingredient%> </td>
+    </tr>
+  <% } %>
+</table>
 
-<%= $ingredients.uniq %>
 <div class="cocktails">
     <% $advanced_search_drinks.each{ |cocktail| %>
         <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["id"]%>'; ">
