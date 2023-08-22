@@ -4,11 +4,12 @@
   <input type="text" name="ingredient">
   <button>Submit</button>
 </form>
-<%= $merged_drinks.length %>
+<button>Clear Search</button>
+<%= $advanced_search_drinks.length %>
 
-<%= @ingredients%>
+<%= $ingredients.uniq %>
 <div class="cocktails">
-    <% $merged_drinks.each{ |cocktail| %>
+    <% $advanced_search_drinks.each{ |cocktail| %>
         <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["id"]%>'; ">
           <h4><%= cocktail["name"] %></h4>
           <img src=<%= cocktail["img"] %> alt="<%=cocktail["name"] %> image" />

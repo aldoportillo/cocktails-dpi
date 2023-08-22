@@ -160,33 +160,11 @@ post("/cocktail_search_dynamic"){
   erb(:cocktail_result)
 }
 
-$advanced_search_drinks = []
+
 
 get("/advanced_search"){
-
-  $global.push(2)
-  @drinks = []
-  @ingredients = []
-
-  if cookies["drinks"] != nil
-    @drinks = JSON.parse(cookies["drinks"])
-  else
-    cookies["drinks"] = JSON.generate([])
-  end
-
-  if cookies["ingredients"] != nil
-    @ingredients = JSON.parse(cookies["ingredients"])
-  else
-    cookies["ingredients"] = JSON.generate([])
-  end
-
-  @drinks_details = []
-  @drinks.each{|drink_id|
-    req_0 = HTTP.get("www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{drink_id}")
-    @res_0 = JSON.parse(req_0).dig("drinks",0)
-
-    @drinks_details.push(res)
-  }
+  $advanced_search_drinks = []
+  $ingredients = []
 
   erb(:advanced_search)
 }
@@ -195,29 +173,29 @@ post("/advanced_search"){
 
   @ingredient = params.fetch("ingredient")
 
-  @ingredients = JSON.parse(cookies["ingredients"]).push(@ingredient)
-
-  cookies["ingredients"] = JSON.generate(@ingredients.uniq)
+  $ingredients.push(@ingredient)
 
   req = HTTP.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{@ingredient}")
   @res = JSON.parse(req).dig("drinks")
 
-  new_drinks = []
+  @new_drinks = []
   @res.each{|drink|
-    new_drinks.push({"name" => drink.fetch("strDrink"), "img" => drink.fetch("strDrinkThumb")})
+    @new_drinks.push({"id" => drink.fetch("idDrink"), "name" => drink.fetch("strDrink"), "img" => drink.fetch("strDrinkThumb")})
   }
   
   if $advanced_search_drinks != []
     
     merged_drinks = []
     $advanced_search_drinks.each{|drink|
-      if new_drinks.include?(drink)
+      if @new_drinks.include?(drink)
         merged_drinks.push(drink)
       end
     }
 
+    $advanced_search_drinks = merged_drinks
+
   else
-    $merged_drinks = new_drinks
+    $advanced_search_drinks = @new_drinks
   end
 
 
