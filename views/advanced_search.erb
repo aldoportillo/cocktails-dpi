@@ -1,13 +1,19 @@
 <h2>Advanced Search</h2>
-<%= $global %>
-<%= @ingredients%>
-<%= @drinks %>
-<%= @res %>
-<%= $merged_drinks %>
-<%= $merged_drinks.length %>
-  
 <form method="post" action="/advanced_search">
   <label for="ingredient">Name of Ingredient</label>
   <input type="text" name="ingredient">
   <button>Submit</button>
 </form>
+<%= $merged_drinks.length %>
+
+<%= @ingredients%>
+<div class="cocktails">
+    <% $merged_drinks.each{ |cocktail| %>
+        <div class="cocktail-box" onclick="window.location.href = '/cocktail/<%= cocktail["id"]%>'; ">
+          <h4><%= cocktail["name"] %></h4>
+          <img src=<%= cocktail["img"] %> alt="<%=cocktail["name"] %> image" />
+        </div>
+      <% } %>
+  </div>
+
+  
